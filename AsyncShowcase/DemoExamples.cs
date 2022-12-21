@@ -29,10 +29,14 @@ namespace AsyncShowcase
 
         private static async Task HeavyTask()
         {
-            Console.WriteLine("Starting heavy task");
+            var currentThread = Thread.CurrentThread;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine($"Starting heavy task on thread {currentThread.ManagedThreadId}");
+            Console.ResetColor();
             await Task.Delay(30000);
-            Console.WriteLine("Done with heavy task");
-
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine($"Done with heavy task on thread {currentThread.ManagedThreadId}");
+            Console.ResetColor();
         }
 
         private static async Task StupidTask(int i)
