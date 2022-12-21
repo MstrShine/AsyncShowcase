@@ -8,6 +8,8 @@
             while (loop)
             {
                 Console.WriteLine("1. Sync vs Async");
+                Console.WriteLine("2. Doing many things at once");
+                Console.WriteLine("3. Doing one heavy and some other stuf at the same time");
 
                 Console.WriteLine("Exit? Type E");
                 Console.WriteLine("Choose one of the options");
@@ -19,6 +21,12 @@
                     {
                         case 1:
                             await SyncVsAsync();
+                            break;
+                        case 2:
+                            await DemoExamples.WhenAllDemo();
+                            break;
+                        case 3:
+                            await DemoExamples.NotWaitingForOtherTask();
                             break;
                         default:
                             WrongChoice();
