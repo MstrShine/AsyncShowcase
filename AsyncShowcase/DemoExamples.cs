@@ -15,14 +15,14 @@ namespace AsyncShowcase
             for (int i = 0; i < 100; i++)
                 taskList.Add(StupidTask(i));
 
-            await Task.WhenAll(taskList).ConfigureAwait(false);
+            await Task.WhenAll(taskList);
         }
 
         public static async Task NotWaitingForOtherTask()
         {
-            var heavyTask = HeavyTask(); // Hot task
+            var heavyTask = HeavyTask();
             for (int i = 0; i < 20; i++)
-                await StupidTask(i); // Cold task
+                await StupidTask(i);
 
             await heavyTask;
         }
@@ -30,7 +30,6 @@ namespace AsyncShowcase
         public static Task DeadlockT1()
         {
             Console.WriteLine("T1");
-            // thread 1
             lock (typeof(int))
             {
                 Console.WriteLine("lock int");
@@ -49,7 +48,6 @@ namespace AsyncShowcase
         public static Task DeadLockT2()
         {
             Console.WriteLine("T2");
-            // thread 2
             lock (typeof(float))
             {
                 Console.WriteLine("lock float");
