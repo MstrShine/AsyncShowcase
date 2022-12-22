@@ -27,6 +27,48 @@ namespace AsyncShowcase
             await heavyTask;
         }
 
+        public static Task DeadlockT1()
+        {
+            Console.WriteLine("T1");
+            // thread 1
+            lock (typeof(int))
+            {
+                Console.WriteLine("lock int");
+                Thread.Sleep(1000);
+                lock (typeof(float))
+                {
+                    Console.WriteLine("lock float");
+                    Console.WriteLine("T1 done");
+                }
+
+            }
+
+            return Task.CompletedTask;
+        }
+
+        public static Task DeadLockT2()
+        {
+            Console.WriteLine("T2");
+            // thread 2
+            lock (typeof(float))
+            {
+                Console.WriteLine("lock float");
+                Thread.Sleep(1000);
+                lock (typeof(int))
+                {
+                    Console.WriteLine("lock int");
+                    Console.WriteLine("T2 done");
+                }
+            }
+
+            return Task.CompletedTask;
+        }
+
+        public static async Task Forget()
+        {
+            throw new Exception();
+        }
+
         private static async Task HeavyTask()
         {
             var currentThread = Thread.CurrentThread;
